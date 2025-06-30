@@ -1,0 +1,29 @@
+Ansys Lumerical 2020 R2 Finite Difference Eigenmode Solver Version 7.16.2387 (Windows 64bit)
+ expires (month/day/year): 12/31/2035
+using config file: Ansys Licensing set with ANSYSLMD_LICENSE_FILE
+license host: 
+current time: Mon Jun 23 23:34:02 2025
+Running on host: Justin
+Running lms file: C:\Program Files\Lumerical\v202\bin\fd-engine-msmpi.exe -t 4 -remote -hide C:/Users/justi/Jac ITB/ITB Semester 6/Optoelektronika/UAS/Perancangan Gerbang Logika Fotonik NAND/rib_waveguide_sweep_voltage/sweep_voltage_8.lms
+Running MODE Simulation
+Starting meshing
+Simulation size in gridpoints: 185 x 166 x 1
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.015625 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 185 x 166 x 1
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.015625 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 185 x 166 x 1
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.015625 seconds of CPU time
+Warning:: primitive object 'core' references the attribute 'charge_distribution' which was not found.
+Warning:: primitive object 'slab' references the attribute 'charge_distribution' which was not found.
+Warning:: primitive object 'core' references the attribute 'charge_distribution' which was not found.
+Warning:: primitive object 'slab' references the attribute 'charge_distribution' which was not found.
+Warning:: primitive object 'core' references the attribute 'charge_distribution' which was not found.
+Warning:: primitive object 'slab' references the attribute 'charge_distribution' which was not found.

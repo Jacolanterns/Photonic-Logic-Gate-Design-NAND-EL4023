@@ -1,0 +1,18 @@
+Ansys Lumerical 2020 R2 Charge Transport Solver Version 7.6.2387 (Windows 64bit)
+ expires (month/day/year): 12/31/2035
+using config file: Ansys Licensing set with ANSYSLMD_LICENSE_FILE
+license host: 
+current time: Mon Jun 23 23:21:48 2025
+Running on host: Justin
+Running ldev file: C:\Program Files\Lumerical\v202\bin\device-engine-msmpi.exe C:/Users/justi/Jac ITB/ITB Semester 6/Optoelektronika/UAS/Perancangan Gerbang Logika Fotonik NAND/waveguide_modulator.ldev -remote
+  ...C:/Users/justi/Jac ITB/ITB Semester 6/Optoelektronika/UAS/Perancangan Gerbang Logika Fotonik NAND/waveguide_modulator.ldev loaded
+Remote execution (remote argument) set to true.
+Generating mesh.
+Mesh generation complete (1s)
+  + vertices: 2521
+  + elements: 4969
+All processes are communicating and ready to proceed to simulation...
+Starting solver.
+Simulation completed successfully at: Mon Jun 23 23:21:57 2025
+  + time to run simulation: 7s
+  + time to finalize and save data: 1s

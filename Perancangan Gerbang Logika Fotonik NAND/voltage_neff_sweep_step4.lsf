@@ -1,0 +1,36 @@
+##################################################################
+
+# Copyright (c) 2023, Ansys, Inc. All rights reserved.  
+
+# Unauthorized use, distribution, or duplication is prohibited.  
+# This product is subject to U.S. laws governing export and re-export.  
+
+##################################################################
+
+
+switchtolayout;
+m = "sweep_voltage";
+runsweep(m);
+
+
+n_eff = getsweepresult(m, "n_eff");
+v = pinch(n_eff.voltage);
+neff = n_eff.neff;
+dn_eff = matrix(length(v),1);
+
+fname="Delta_neff.txt";
+
+if (fileexists(fname)) { rm(fname);} 
+
+for(i=1:length(v)){ # loop over the length of the data
+    dn_eff(i) = neff(i)-neff(1);
+    write(fname,num2str(v(i))+" "+num2str(real(dn_eff(i)))+" "+num2str(imag(dn_eff(i))));
+}
+
+plot(abs(v),dn_eff,"abs(voltage[V])","dn_eff");
+legend("real(dn_eff)","imag(dn_eff)");
+
+loss = 10*4*pi*imag(neff)/(1.55e-6*log(10))*1e-2; #loss[dB/cm]
+dn_loss = real(dn_eff)+loss*1i;
+plot(abs(v),dn_loss,"abs(voltage[V])");
+legend("real(dn_eff)","loss[dB/cm]");

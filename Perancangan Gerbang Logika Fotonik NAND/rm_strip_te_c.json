@@ -1,0 +1,348 @@
+{
+  "FOMs" : 
+  {
+    "FSR" : 
+    {
+      "max" : 2e-08,
+      "min" : 1e-08,
+      "tuning" : 1.0,
+      "value" : 1.0250000000000001e-08,
+      "visible_to_user" : 0.0
+    },
+    "IL" : 
+    {
+      "max" : 30.0,
+      "min" : 10.0,
+      "tuning" : 1.0,
+      "value" : 20.399999999999999,
+      "visible_to_user" : 0.0
+    },
+    "Q" : 
+    {
+      "max" : 20000.0,
+      "min" : 10000.0,
+      "tuning" : 1.0,
+      "value" : 12500.0,
+      "visible_to_user" : 0.0
+    },
+    "mod_eff" : 
+    {
+      "max" : 5.0000000000000002e-11,
+      "min" : 9.9999999999999998e-13,
+      "ref1" : 0.0,
+      "ref2" : -2.0,
+      "tuning" : 1.0,
+      "value" : 1.2000000000000001e-11,
+      "visible_to_user" : 0.0
+    },
+    "mod_eff_thermal" : 
+    {
+      "max" : 1.0000000000000001e-05,
+      "min" : 1e-08,
+      "ref1" : 0.0,
+      "ref2" : 0.01,
+      "tuning" : 1.0,
+      "value" : 4.1670000000000002e-07,
+      "visible_to_user" : 0.0
+    },
+    "resonant_wavelength" : 
+    {
+      "max" : 1.7e-06,
+      "min" : 1.3e-06,
+      "tuning" : 1.0,
+      "value" : 1.55e-06,
+      "visible_to_user" : 0.0
+    }
+  },
+  "QA" : 
+  {
+    "parameters" : 
+    {
+      "BW_bias" : -2.0,
+      "imp_amplitude" : 0.10000000000000001,
+      "sample_rate" : 8000000000000.0,
+      "thermal_BW_bias" : 4.0
+    },
+    "relative_tolerances" : 
+    {
+      "BW_electrical" : 0.10000000000000001,
+      "BW_thermal" : 0.29999999999999999,
+      "FSR" : 0.012500000000000001,
+      "IL" : 0.01,
+      "Q" : 0.014999999999999999,
+      "dneff_dT" : 0.02,
+      "mod_eff" : 0.02,
+      "mod_eff_thermal" : 0.02,
+      "resonant_wavelength" : 1.0000000000000001e-05
+    }
+  },
+  "general" : 
+  {
+    "description" : "Foundry strip ring modulator - C band TE",
+    "notes" : 
+    {
+      "_data" : 
+      [
+        {
+          "property" : "wavelength_range",
+          "value" : "C-band (1530 - 1565 nm)"
+        },
+        {
+          "property" : "bias_range_phase_shifter",
+          "value" : "[-2 V, 0.5 V]"
+        },
+        {
+          "property" : "bias_range_thermal_tuner",
+          "value" : "[0 V, 5 V]"
+        },
+        {
+          "property" : "polarization",
+          "value" : "TE"
+        }
+      ],
+      "_type" : "cell"
+    },
+    "prefix" : "RM",
+    "time_domain_req_note" : 1.0
+  },
+  "model_data" : 
+  {
+    "coupler_data" : 
+    {
+      "Lc" : 0.0,
+      "couplercoeff_data" : 
+      {
+        "through" : 
+        {
+          "_complex" : false,
+          "_data" : [ -0.77932148517094879, 0.0, 615751.68715328642, 0.0 ],
+          "_size" : [ 2, 2 ],
+          "_type" : "matrix"
+        }
+      },
+      "wavelength" : 
+      {
+        "max" : 1.5999999999999999e-06,
+        "min" : 1.5e-06
+      }
+    },
+    "electrical_tuner_data" : 
+    {
+      "bandwidth_data" : 
+      {
+        "bandwidth" : 
+        {
+          "_complex" : false,
+          "_data" : [ 5000000000.0, 5500000000.0, 6000000000.0, 6000000000.0 ],
+          "_size" : [ 4, 1 ],
+          "_type" : "matrix"
+        },
+        "voltage" : 
+        {
+          "_complex" : false,
+          "_data" : [ 0.0, -1.0, -2.0, -3.0 ],
+          "_size" : [ 4, 1 ],
+          "_type" : "matrix"
+        }
+      },
+      "fill_factor" : 0.94999999999999996,
+      "phase_shifter_data" : 
+      {
+        "delta_k" : 
+        {
+          "_complex" : false,
+          "_data" : 
+          [
+            0.0,
+            -1.5253708904356967e-06,
+            -2.6642055298923999e-06,
+            -3.5954748218297939e-06,
+            -4.3839996445370984e-06,
+            -5.0699963256094595e-06,
+            -5.6722285882637547e-06,
+            -6.2088833139598237e-06,
+            -6.6905186011890634e-06,
+            -7.1232592170535255e-06,
+            -7.5130980250868192e-06
+          ],
+          "_size" : [ 11, 1 ],
+          "_type" : "matrix"
+        },
+        "delta_n" : 
+        {
+          "_complex" : false,
+          "_data" : 
+          [
+            0.0,
+            3.5254392997341455e-05,
+            6.1280930208518214e-05,
+            8.2533391050798599e-05,
+            0.00010054812635962307,
+            0.00011626556552313261,
+            0.00013015464093779627,
+            0.00014260846269431582,
+            0.00015387840200764558,
+            0.00016413194247810736,
+            0.0001735369495183825
+          ],
+          "_size" : [ 11, 1 ],
+          "_type" : "matrix"
+        },
+        "voltage" : 
+        {
+          "_complex" : false,
+          "_data" : [ 0.0, -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0 ],
+          "_size" : [ 11, 1 ],
+          "_type" : "matrix"
+        }
+      }
+    },
+    "photonic_model" : "ring_modulator",
+    "th_eq_ckt_data" : 
+    {
+      "current" : 
+      {
+        "_complex" : false,
+        "_data" : 
+        [
+          0.0,
+          0.0049166699999999997,
+          0.0096666700000000005,
+          0.014250000000000001,
+          0.018666700000000001,
+          0.022916700000000002,
+          0.027,
+          0.030916699999999998,
+          0.034666700000000002,
+          0.038249999999999999,
+          0.041666700000000001
+        ],
+        "_size" : [ 11, 1 ],
+        "_type" : "matrix"
+      },
+      "voltage" : 
+      {
+        "_complex" : false,
+        "_data" : [ 0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0 ],
+        "_size" : [ 11, 1 ],
+        "_type" : "matrix"
+      }
+    },
+    "thermal_tuner_data" : 
+    {
+      "bandwidth_data" : 100000.0,
+      "data_format" : 2.0,
+      "fill_factor" : 1.0,
+      "phase_shifter_data" : 
+      {
+        "delta_phase" : 
+        {
+          "_complex" : false,
+          "_data" : 
+          [
+            0.0,
+            4.1670000000000002e-09,
+            1.6700000000000001e-08,
+            3.7499999999999998e-08
+          ],
+          "_size" : [ 4, 1 ],
+          "_type" : "matrix"
+        },
+        "power" : 
+        {
+          "_complex" : false,
+          "_data" : [ 0.0, 0.01, 0.040000000000000001, 0.089999999999999997 ],
+          "_size" : [ 4, 1 ],
+          "_type" : "matrix"
+        }
+      }
+    },
+    "waveguide_data" : 
+    {
+      "high_loss_waveguide_fill_factor" : 1.0,
+      "radius" : 1.0000000000000001e-05,
+      "temperature" : 300.0,
+      "waveguide_hangover" : 
+      {
+        "dneff_dT" : 0.00018799999999999999,
+        "length" : 1.0000000000000001e-05,
+        "loss" : 200.0,
+        "neff" : 2.5461658842250041,
+        "ng" : 3.728345245680571
+      },
+      "waveguide_ring_doped" : 
+      {
+        "dneff_dT" : 0.00018799999999999999,
+        "loss" : 801.82282838056142,
+        "neff" : 2.5493891032497369,
+        "ng" : 3.7228197056906369
+      },
+      "waveguide_ring_undoped" : 
+      {
+        "dneff_dT" : 0.00018799999999999999,
+        "loss" : 482.28494831963843,
+        "neff" : 2.549625104379639,
+        "ng" : 3.722999271081771
+      },
+      "wavelength" : 1.55e-06
+    }
+  },
+  "parameters" : 
+  {
+    "temperature" : 
+    {
+      "default" : "%temperature%"
+    }
+  },
+  "ports" : 
+  {
+    "ele_an" : 
+    {
+      "dir" : "Bidirectional",
+      "loc" : 0.14999999999999999,
+      "name" : "ele_an_top",
+      "order" : 3.0,
+      "pos" : "Top"
+    },
+    "ele_cat" : 
+    {
+      "dir" : "Bidirectional",
+      "loc" : 0.84999999999999998,
+      "name" : "ele_cat_top",
+      "order" : 4.0,
+      "pos" : "Top"
+    },
+    "opt_1" : 
+    {
+      "dir" : "Bidirectional",
+      "loc" : 0.5,
+      "name" : "opt_1",
+      "order" : 1.0,
+      "pos" : "Left"
+    },
+    "opt_2" : 
+    {
+      "dir" : "Bidirectional",
+      "loc" : 0.5,
+      "name" : "opt_2",
+      "order" : 2.0,
+      "pos" : "Right"
+    },
+    "th_neg" : 
+    {
+      "dir" : "Bidirectional",
+      "loc" : 0.84999999999999998,
+      "name" : "ele_th_2",
+      "order" : 5.0,
+      "pos" : "Bottom"
+    },
+    "th_pos" : 
+    {
+      "dir" : "Bidirectional",
+      "loc" : 0.14999999999999999,
+      "name" : "ele_th_1",
+      "order" : 6.0,
+      "pos" : "Bottom"
+    }
+  }
+}

@@ -1,0 +1,273 @@
+##################################################################
+
+# Copyright (c) 2023, Ansys, Inc. All rights reserved.  
+
+# Unauthorized use, distribution, or duplication is prohibited.  
+# This product is subject to U.S. laws governing export and re-export.  
+
+# For full Legal Notice, see documentation.
+
+##################################################################
+
+### MODEL PROPERTIES ###
+# General: includes the model description, prefix and notes
+
+general=struct;
+general.description='Foundry strip ring modulator - C band TE'; # Please give a brief description, e.g., "Strip Waveguide - Supporting TE & TM modes"
+# CML/notes		# Feel free to add notes as you see fit 
+# Warning: Do not use as property the name of an existing parameter
+general.notes=cell(4);
+general.notes{1}=struct;
+general.notes{1}.property='wavelength_range';
+general.notes{1}.value='C-band (1530 - 1565 nm)';
+general.notes{2}=struct;
+general.notes{2}.property='bias_range_phase_shifter';
+general.notes{2}.value='[-2 V, 0.5 V]';
+general.notes{3}=struct;
+general.notes{3}.property='bias_range_thermal_tuner';
+general.notes{3}.value='[0 V, 5 V]';
+general.notes{4}=struct;
+general.notes{4}.property='polarization';
+general.notes{4}.value='TE';
+general.prefix='RM';
+general.time_domain_req_note=1; # Adds a note in the compact model quoting the minimum sampling rate required for accurate time domain simulation 1=true
+
+#ports: defines the ports for element. Generally, this noot to change and we strongly recommend using the same port name.
+#Electrical Anode
+ports=struct;
+ports.ele_an=struct;
+ports.ele_an.dir='Bidirectional';
+ports.ele_an.loc=0.15;
+ports.ele_an.name='ele_an_top';
+ports.ele_an.order=3;
+ports.ele_an.pos='Top';
+#Electrical cathode
+ports.ele_cat=struct;
+ports.ele_cat.dir='Bidirectional';
+ports.ele_cat.loc=0.85;
+ports.ele_cat.name='ele_cat_top';
+ports.ele_cat.order=4;
+ports.ele_cat.pos='Top';
+#Optical ports 1 and 2
+ports.opt_1=struct;
+ports.opt_1.dir='Bidirectional';
+ports.opt_1.loc=0.5;
+ports.opt_1.name='opt_1';
+ports.opt_1.order=1;
+ports.opt_1.pos='Left';
+ports.opt_2=struct;
+ports.opt_2.dir='Bidirectional';
+ports.opt_2.loc=0.5;
+ports.opt_2.name='opt_2';
+ports.opt_2.order=2;
+ports.opt_2.pos='Right';
+#Thermal -ve
+ports.th_neg=struct;
+ports.th_neg.dir='Bidirectional';
+ports.th_neg.loc=0.85;
+ports.th_neg.name='ele_th_2';
+ports.th_neg.order=5;
+ports.th_neg.pos='Bottom';
+#Thermal +ve
+ports.th_pos=struct;
+ports.th_pos.dir='Bidirectional';
+ports.th_pos.loc=0.15;
+ports.th_pos.name='ele_th_1';
+ports.th_pos.order=6;
+ports.th_pos.pos='Bottom';
+
+#parameters
+parameters=struct;
+parameters.temperature=struct;
+parameters.temperature.default='%temperature%'; # Inherit from Root Element. Otherwise, provide the value in K. For example: temperature = 300;
+
+#model data: Data used to model the properties of the element
+
+#adding simulated data; which is extracted from running parameter extraction in waveguide_modulator.ldev
+
+data_filename = "rm_strip_te_c_simulated.json";
+jsonload(data_filename);
+
+model_data=struct;
+model_data.coupler_data=struct;
+model_data.coupler_data.Lc=0;
+model_data.coupler_data.couplercoeff_data=struct;
+model_data.coupler_data.couplercoeff_data.through=matrix(2,2);
+model_data.coupler_data.couplercoeff_data.through=couplercoeff;
+
+
+model_data.coupler_data.wavelength=struct;
+model_data.coupler_data.wavelength.max=1.6e-06;
+model_data.coupler_data.wavelength.min=1.5e-06;
+
+model_data.electrical_tuner_data=struct;
+model_data.electrical_tuner_data.bandwidth_data=struct;
+model_data.electrical_tuner_data.bandwidth_data.bandwidth=matrix(4);
+model_data.electrical_tuner_data.bandwidth_data.bandwidth=electrical_bandwidth_data(:,2);
+
+
+model_data.electrical_tuner_data.bandwidth_data.voltage=matrix(4);
+model_data.electrical_tuner_data.bandwidth_data.voltage=electrical_bandwidth_data(:,1);
+
+
+model_data.electrical_tuner_data.fill_factor=0.95;
+model_data.electrical_tuner_data.phase_shifter_data=struct;
+model_data.electrical_tuner_data.phase_shifter_data.delta_k=matrix(11);
+model_data.electrical_tuner_data.phase_shifter_data.delta_k=phase_shifter_data(:,3);
+
+model_data.electrical_tuner_data.phase_shifter_data.delta_n=matrix(11);
+model_data.electrical_tuner_data.phase_shifter_data.delta_n=phase_shifter_data(:,2);
+
+
+model_data.electrical_tuner_data.phase_shifter_data.voltage=matrix(11);
+model_data.electrical_tuner_data.phase_shifter_data.voltage=phase_shifter_data(:,1);
+
+
+
+model_data.photonic_model='ring_modulator'; # Photonic model used in the element.
+model_data.th_eq_ckt_data=struct;
+model_data.th_eq_ckt_data.current=matrix(11);
+model_data.th_eq_ckt_data.current(1)=0;
+model_data.th_eq_ckt_data.current(2)=0.00491667;
+model_data.th_eq_ckt_data.current(3)=0.00966667;
+model_data.th_eq_ckt_data.current(4)=0.01425;
+model_data.th_eq_ckt_data.current(5)=0.0186667;
+model_data.th_eq_ckt_data.current(6)=0.0229167;
+model_data.th_eq_ckt_data.current(7)=0.027;
+model_data.th_eq_ckt_data.current(8)=0.0309167;
+model_data.th_eq_ckt_data.current(9)=0.0346667;
+model_data.th_eq_ckt_data.current(10)=0.03825;
+model_data.th_eq_ckt_data.current(11)=0.0416667;
+model_data.th_eq_ckt_data.voltage=matrix(11);
+model_data.th_eq_ckt_data.voltage(1)=0;
+model_data.th_eq_ckt_data.voltage(2)=0.5;
+model_data.th_eq_ckt_data.voltage(3)=1;
+model_data.th_eq_ckt_data.voltage(4)=1.5;
+model_data.th_eq_ckt_data.voltage(5)=2;
+model_data.th_eq_ckt_data.voltage(6)=2.5;
+model_data.th_eq_ckt_data.voltage(7)=3;
+model_data.th_eq_ckt_data.voltage(8)=3.5;
+model_data.th_eq_ckt_data.voltage(9)=4;
+model_data.th_eq_ckt_data.voltage(10)=4.5;
+model_data.th_eq_ckt_data.voltage(11)=5;
+
+model_data.thermal_tuner_data=struct;
+model_data.thermal_tuner_data.bandwidth_data=100000;
+model_data.thermal_tuner_data.data_format=2; #source data format for thermal tuner data; 1 = phase shift; 2 = resonance wavelength shift 
+model_data.thermal_tuner_data.fill_factor=1;
+
+model_data.thermal_tuner_data.phase_shifter_data=struct;
+model_data.thermal_tuner_data.phase_shifter_data.delta_phase=matrix(4);
+
+model_data.thermal_tuner_data.phase_shifter_data.delta_phase(1)=0;
+model_data.thermal_tuner_data.phase_shifter_data.delta_phase(2)=4.167e-09;
+model_data.thermal_tuner_data.phase_shifter_data.delta_phase(3)=1.67e-08;
+model_data.thermal_tuner_data.phase_shifter_data.delta_phase(4)=3.75e-08;
+
+model_data.thermal_tuner_data.phase_shifter_data.power=matrix(4);
+
+model_data.thermal_tuner_data.phase_shifter_data.power(1)=0;
+model_data.thermal_tuner_data.phase_shifter_data.power(2)=0.01;
+model_data.thermal_tuner_data.phase_shifter_data.power(3)=0.04;
+model_data.thermal_tuner_data.phase_shifter_data.power(4)=0.09;
+
+model_data.waveguide_data=struct;
+model_data.waveguide_data.high_loss_waveguide_fill_factor=1;
+model_data.waveguide_data.radius=1e-05;
+model_data.waveguide_data.temperature=300;
+
+model_data.waveguide_data.waveguide_hangover=struct;
+
+model_data.waveguide_data.waveguide_hangover.dneff_dT=dneff_dT;
+model_data.waveguide_data.waveguide_hangover.length=hangover_length;
+model_data.waveguide_data.waveguide_hangover.loss=loss_all(1,3);
+model_data.waveguide_data.waveguide_hangover.neff=neff_all(1,3);
+model_data.waveguide_data.waveguide_hangover.ng=ng_all(1,3);
+
+model_data.waveguide_data.waveguide_ring_doped=struct;
+
+model_data.waveguide_data.waveguide_ring_doped.dneff_dT=dneff_dT;
+model_data.waveguide_data.waveguide_ring_doped.loss=loss_all(1,2);
+model_data.waveguide_data.waveguide_ring_doped.neff=neff_all(1,2);
+model_data.waveguide_data.waveguide_ring_doped.ng=ng_all(1,2);
+
+model_data.waveguide_data.waveguide_ring_undoped=struct;
+
+model_data.waveguide_data.waveguide_ring_undoped.dneff_dT=dneff_dT;
+model_data.waveguide_data.waveguide_ring_undoped.loss=loss_all(1,1);
+model_data.waveguide_data.waveguide_ring_undoped.neff=neff_all(1,1);
+model_data.waveguide_data.waveguide_ring_undoped.ng=ng_all(1,1);
+model_data.waveguide_data.wavelength=1.55e-06;
+
+#QA test
+QA=struct;
+#Parameters for QA test
+QA.parameters=struct;
+QA.parameters.BW_bias=-2; # bias for electrical BW test
+QA.parameters.imp_amplitude=0.1; # amplitude of the impulse in the electrical BW test
+QA.parameters.sample_rate=8e+12;  # sample rate for time domain tests (restricted by the minimum requirement for the device)
+QA.parameters.thermal_BW_bias=4; # for ring with thermal tuner (used for Verilog-A QA only)
+
+#Relative tolerance for QA tests
+#Note: If simulation value is different from the value provided within the data file by more than this toleance th QA test will fail.
+QA.relative_tolerances=struct;
+QA.relative_tolerances.BW_electrical=0.1; # for ring with electrical modulation
+QA.relative_tolerances.BW_thermal=0.3;  # for ring with thermal tuner 
+QA.relative_tolerances.FSR=0.0125;
+QA.relative_tolerances.IL=0.01;
+QA.relative_tolerances.Q=0.015; # relative tolerance for tests with large Q
+QA.relative_tolerances.dneff_dT=0.02;
+QA.relative_tolerances.mod_eff=0.02; # for ring with electrical modulation
+QA.relative_tolerances.mod_eff_thermal=0.02;  # for ring with thermal tuner 
+QA.relative_tolerances.resonant_wavelength=1e-05;
+
+#FOMs
+# This data is required for CML Compiler to run quality-assurance tests on the final model. It is also optionally used by CML Compiler to fine-tune the internal model to provide the expected behavior.
+FOMs=struct;
+FOMs.FSR=struct;
+FOMs.FSR.max=2e-08;
+FOMs.FSR.min=1e-08;
+FOMs.FSR.tuning=1;
+FOMs.FSR.value=1.025e-08;
+FOMs.FSR.visible_to_user=0;
+FOMs.IL=struct;
+FOMs.IL.max=30;
+FOMs.IL.min=10;
+FOMs.IL.tuning=1;
+FOMs.IL.value=20.4;
+FOMs.IL.visible_to_user=0;
+FOMs.Q=struct;
+FOMs.Q.max=20000;
+FOMs.Q.min=10000;
+FOMs.Q.tuning=1;
+FOMs.Q.value=12500;
+FOMs.Q.visible_to_user=0;
+FOMs.mod_eff=struct;
+FOMs.mod_eff.max=5e-11;
+FOMs.mod_eff.min=1e-12;
+FOMs.mod_eff.ref1=0;
+FOMs.mod_eff.ref2=-2;
+FOMs.mod_eff.tuning=1;
+FOMs.mod_eff.value=1.2e-11;
+FOMs.mod_eff.visible_to_user=0;
+FOMs.mod_eff_thermal=struct;
+FOMs.mod_eff_thermal.max=1e-05;
+FOMs.mod_eff_thermal.min=1e-08;
+FOMs.mod_eff_thermal.ref1=0;
+FOMs.mod_eff_thermal.ref2=0.01;
+FOMs.mod_eff_thermal.tuning=1;
+FOMs.mod_eff_thermal.value=4.167e-07;
+FOMs.mod_eff_thermal.visible_to_user=0;
+FOMs.resonant_wavelength=struct;
+FOMs.resonant_wavelength.max=1.7e-06;
+FOMs.resonant_wavelength.min=1.3e-06;
+FOMs.resonant_wavelength.tuning=1;
+FOMs.resonant_wavelength.value=1.55e-06;
+FOMs.resonant_wavelength.visible_to_user=0;
+
+#######################################################################
+#Export model source data structs to JSON file
+#######################################################################
+
+jsonsave("rm_strip_te_c.json",general,ports,parameters,model_data,QA,FOMs);
+

@@ -1,0 +1,91 @@
+##################################################################
+
+# Copyright (c) 2023, Ansys, Inc. All rights reserved.  
+
+# Unauthorized use, distribution, or duplication is prohibited.  
+# This product is subject to U.S. laws governing export and re-export.  
+
+##################################################################
+
+clear;
+lambda0 = 1.553e-6;
+
+## 0V
+switchtolayout;
+select("DC_1");
+set("amplitude",0);
+run;
+peak_0v = getresult("ONA_1","input 1/mode 1/peak/frequency");
+out = almostequal(peak_0v,lambda0,1e-15,3e-9);
+ind_0v = find(out,1);
+
+fsr = getresult("ONA_1","input 1/mode 1/peak/free spectral range");
+fsr = fsr.getattribute("mode1 free spectral range (m)");
+fsr = fsr(ind_0v)*1e9;
+?"free spectral range near 1550 nm is " + num2str(fsr)+" nm";
+
+ExR = getresult("ONA_1","input 1/mode 1/peak/extinction ratio");
+ExR = ExR.getattribute("mode1 ratio (dB)");
+ExR = ExR(ind_0v);
+?"Extinction ratio near 1550 nm is " + num2str(ExR)+" dB";
+
+
+loss = getresult("ONA_1","input 1/mode 1/peak/loss");
+loss = loss.getattribute("mode1 loss (dB)");
+loss = loss(ind_0v);
+?"Loss near 1550 nm is " + num2str(loss)+" dB";
+
+qfactor = getresult("ONA_1","input 1/mode 1/peak/quality factor");
+qfactor = qfactor.getattribute("mode1 quality factor");
+qfactor = qfactor(ind_0v);
+?"Quality factor (Q) near 1550 nm is " + num2str(qfactor);
+
+gain = getresult("ONA_1","input 1/mode 1/gain"); 
+lambda = gain.wavelength;
+mode1_gain = gain.getattribute("mode1 gain (dB)");
+plot(lambda*1e9,mode1_gain);
+holdon;
+
+## -1V
+switchtolayout;
+select("DC_1");
+set("amplitude",-1);
+run;
+peak_1v = getresult("ONA_1","input 1/mode 1/peak/frequency");
+ind_1v = find(almostequal(peak_1v,lambda0,1e-15,3e-9),1);
+
+lambda_shift = abs(peak_0v(ind_0v) - peak_1v(ind_1v));
+L = getnamed("Active_Bent_modulated","length");
+?"Modulation efficiency near 1550 nm for a 1V bias voltage and a modulation length of " +num2str(L*1e2) +" cm is "+num2str(lambda_shift*1e9)+" nm/V";
+
+gain = getresult("ONA_1","input 1/mode 1/gain"); 
+lambda = gain.wavelength;
+mode1_gain = gain.getattribute("mode1 gain (dB)");
+plot(lambda*1e9,mode1_gain);
+
+
+## -4V
+switchtolayout;
+select("DC_1");
+set("amplitude",-4);
+run;
+gain = getresult("ONA_1","input 1/mode 1/gain"); 
+lambda = gain.wavelength;
+mode1_gain = gain.getattribute("mode1 gain (dB)");
+plot(lambda*1e9,mode1_gain);
+
+## -10V
+switchtolayout;
+select("DC_1");
+set("amplitude",-10);
+run;
+gain = getresult("ONA_1","input 1/mode 1/gain"); 
+lambda = gain.wavelength;
+mode1_gain = gain.getattribute("mode1 gain (dB)");
+plot(lambda*1e9,mode1_gain);
+setplot("x label","wavelength [nm]");
+setplot("y label","Transmission [dB]");
+
+
+legend("0V","-1V","-4V","-10V");
+holdoff;
